@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping
+@RequestMapping("/")
 @CrossOrigin
 public class ReservationResource {
 
@@ -22,7 +22,7 @@ public class ReservationResource {
         this.reservationRepository = reservationRepository;
     }
 
-    @GetMapping("/reservations")
+    @GetMapping("reservations")
     public ResponseEntity<Iterable<ReservationEntity>> getAllReservations() {
         return new ResponseEntity<>(reservationRepository.findAll(), HttpStatus.OK);
     }
