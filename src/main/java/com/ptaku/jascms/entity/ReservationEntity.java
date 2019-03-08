@@ -1,10 +1,12 @@
 package com.ptaku.jascms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "Reservation")
+@Entity(name = "reservationEntity")
+@Table(name = "reservationEntity")
 public class ReservationEntity {
 
     @Id
@@ -18,6 +20,11 @@ public class ReservationEntity {
     private String start;
 
     private String description;
+
+    @JsonIgnoreProperties("reservations")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "customerEntity_id")
+    private CustomerEntity customerEntity;
 
     public ReservationEntity() {
     }
@@ -58,5 +65,14 @@ public class ReservationEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
+    }
+
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
+
     }
 }

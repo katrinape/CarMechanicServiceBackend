@@ -25,32 +25,31 @@ public class ReservationResource {
     }
 
     @GetMapping("/{reservationId}")
-    public ResponseEntity<ReservationEntity> getReservationById(@PathVariable Long reservationId) {
+    public ResponseEntity<ReservationEntity> getReservation(@PathVariable Long reservationId) {
         return new ResponseEntity<>(reservationRepository.findById(reservationId).orElse(null), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ReservationEntity> createReservation(@RequestBody ReservationEntity reservationEntity) {
-        reservationRepository.save(reservationEntity);
-        return new ResponseEntity<>(reservationEntity, HttpStatus.CREATED);
+        ReservationEntity entity = reservationRepository.save(reservationEntity);
+        return new ResponseEntity<>(entity, HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<ReservationEntity> updateReservation(@RequestBody ReservationEntity reservationEntity) {
-        reservationRepository.save(reservationEntity);
-        return new ResponseEntity<>(reservationEntity, HttpStatus.OK);
+        ReservationEntity entity = reservationRepository.save(reservationEntity);
+        return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
     @DeleteMapping("/{reservationId}")
-    public ResponseEntity<ReservationEntity> deleteReservation(@PathVariable Long reservationId) {
-        if (reservationRepository.findById(reservationId).isPresent())
-            reservationRepository.deleteById(reservationId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity deleteReservation(@PathVariable Long reservationId) {
+        reservationRepository.deleteById(reservationId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping
-    public ResponseEntity<ReservationEntity> deleteAllReservations() {
+    public ResponseEntity deleteAllReservations() {
         reservationRepository.deleteAll();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

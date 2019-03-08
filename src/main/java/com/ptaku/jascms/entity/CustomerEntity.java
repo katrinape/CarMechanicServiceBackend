@@ -1,10 +1,14 @@
 package com.ptaku.jascms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "Customer")
+@Entity(name = "customerEntity")
+@Table(name = "customerEntity")
 public class CustomerEntity {
 
     @Id
@@ -22,6 +26,10 @@ public class CustomerEntity {
 
     @NotNull
     private String email;
+
+    @JsonIgnoreProperties("customerEntity")
+    @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL)
+    private List<ReservationEntity> reservations;
 
     public CustomerEntity() {
     }
@@ -71,5 +79,17 @@ public class CustomerEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<ReservationEntity> getReservations() {
+        return reservations;
+    }
+
+    public void addReservation(ReservationEntity reservationEntity) {
+        if (this.reservations == null) {
+            this.reservations = new ArrayList<>();
+        }
+        this.reservations.add(reservationEntity);
+        reservationEntity.setCustomerEntity(this);
     }
 }
