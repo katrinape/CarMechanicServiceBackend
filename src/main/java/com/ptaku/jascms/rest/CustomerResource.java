@@ -1,7 +1,9 @@
 package com.ptaku.jascms.rest;
 
+import com.ptaku.jascms.entity.CarEntity;
 import com.ptaku.jascms.entity.CustomerEntity;
 import com.ptaku.jascms.entity.ReservationEntity;
+import com.ptaku.jascms.repository.CarRepository;
 import com.ptaku.jascms.repository.CustomerRepository;
 import com.ptaku.jascms.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,13 @@ public class CustomerResource {
 
     private CustomerRepository customerRepository;
     private ReservationRepository reservationRepository;
+    private CarRepository carRepository;
 
     @Autowired
-    public CustomerResource(CustomerRepository customerRepository, ReservationRepository reservationRepository) {
+    public CustomerResource(CustomerRepository customerRepository, ReservationRepository reservationRepository, CarRepository carRepository) {
         this.customerRepository = customerRepository;
         this.reservationRepository = reservationRepository;
+        this.carRepository = carRepository;
     }
 
     @GetMapping
@@ -39,7 +43,7 @@ public class CustomerResource {
         return new ResponseEntity<>(entity, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{customerId}")
+    @PostMapping("/{customerId}/reservations")
     public ResponseEntity<CustomerEntity> addReservationToCustomer(@PathVariable Long customerId, @RequestBody ReservationEntity reservationEntity) {
         CustomerEntity customerEntity = customerRepository.findById(customerId).orElse(null);
         if(customerEntity != null) {
@@ -49,9 +53,24 @@ public class CustomerResource {
         return new ResponseEntity<>(customerEntity, HttpStatus.OK);
     }
 
+    @PostMapping("/{customerId}/cars")
+    public ResponseEntity<CustomerEntity> addCarToCustomer(@PathVariable Long customerId, @RequestBody CarEntity carEntity) {
+        CustomerEntity customerEntity = customerRepository.findById(customerId).orElse(null);
+        if(customerEntity != null) {
+            customerEntity.addCar(carEntity);
+            customerRepository.save(customerEntity);
+        }
+        return new ResponseEntity<>(customerEntity, HttpStatus.OK);
+    }
+
     @GetMapping("/{customerId}/reservations")
     public ResponseEntity<Iterable<ReservationEntity>> getCustomerReservations(@PathVariable Long customerId) {
         return new ResponseEntity<>(reservationRepository.findReservationEntitiesByCustomerEntityId(customerId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{customerId}/cars")
+    public ResponseEntity<Iterable<CarEntity>> getCustomerCars(@PathVariable Long customerId) {
+        return new ResponseEntity<>(carRepository.findCarEntitiesByCustomerEntityId(customerId), HttpStatus.OK);
     }
 
     @PutMapping

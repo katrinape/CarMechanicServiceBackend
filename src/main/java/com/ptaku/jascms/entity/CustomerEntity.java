@@ -31,6 +31,10 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL)
     private List<ReservationEntity> reservations;
 
+    @JsonIgnoreProperties("customerEntity")
+    @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL)
+    private List<CarEntity> cars;
+
     public CustomerEntity() {
     }
 
@@ -91,5 +95,17 @@ public class CustomerEntity {
         }
         this.reservations.add(reservationEntity);
         reservationEntity.setCustomerEntity(this);
+    }
+
+    public List<CarEntity> getCars() {
+        return cars;
+    }
+
+    public void addCar(CarEntity carEntity) {
+        if (this.cars == null) {
+            this.cars = new ArrayList<>();
+        }
+        this.cars.add(carEntity);
+        carEntity.setCustomerEntity(this);
     }
 }

@@ -21,7 +21,7 @@ public class ReservationEntity {
 
     private String description;
 
-    @JsonIgnoreProperties("reservations")
+    @JsonIgnoreProperties({"reservations", "cars"})
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "customerEntity_id")
     private CustomerEntity customerEntity;
@@ -73,6 +73,5 @@ public class ReservationEntity {
 
     public void setCustomerEntity(CustomerEntity customerEntity) {
         this.customerEntity = customerEntity;
-
     }
 }
