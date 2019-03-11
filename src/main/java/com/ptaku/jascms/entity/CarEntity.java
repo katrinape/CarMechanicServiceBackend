@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "carEntity")
 @Table(name = "carEntity")
@@ -29,6 +31,10 @@ public class CarEntity {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "customerEntity_id")
     private CustomerEntity customerEntity;
+
+    @JsonIgnoreProperties("carEntity")
+    @OneToMany(mappedBy = "carEntity", cascade = CascadeType.ALL)
+    private List<RepairEntity> repairs;
 
     public CarEntity() {
     }
@@ -86,5 +92,17 @@ public class CarEntity {
 
     public void setCustomerEntity(CustomerEntity customerEntity) {
         this.customerEntity = customerEntity;
+    }
+
+    public List<RepairEntity> getRepairs() {
+        return repairs;
+    }
+
+    public void addRepair(RepairEntity repairEntity) {
+        if (this.repairs == null) {
+            this.repairs = new ArrayList<>();
+        }
+        this.repairs.add(repairEntity);
+        repairEntity.setCarEntity(this);
     }
 }
