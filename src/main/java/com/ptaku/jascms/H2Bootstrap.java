@@ -38,12 +38,12 @@ public class H2Bootstrap implements CommandLineRunner {
         reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-18", "dupa"));
         reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-19", "dupa"));
 
-        carRepository.save(new CarEntity("Mazda", "LUB3447E", "BGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("Uno", "LUB3447E", "BGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("Lada", "LUB3447E", "BGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("Audi", "LUB3447E", "BGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("Jeep", "LUB3447E", "BGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("BMW", "LUB3447E", "BGFHJK5555555", 200000L));
+        carRepository.save(new CarEntity("Mazda", "LUB3447E", "GGFHJK5555555", 205000L));
+        carRepository.save(new CarEntity("Uno", "PUB3447E", "BGFHJK5555555", 200000L));
+        carRepository.save(new CarEntity("Lada", "LUB3447E", "HBGFHJK5555555", 200700L));
+        carRepository.save(new CarEntity("Audi", "YUB3447E", "BGFHJK5555555", 280040L));
+        carRepository.save(new CarEntity("Jeep", "LUB3447E", "JBGFHJK5555555", 200000L));
+        carRepository.save(new CarEntity("BMW", "JUB3447E", "BPGFHJK5555555", 200800L));
 
         customerRepository.save(new CustomerEntity("Jan", "Kowalski", "666555999", "jan@kowalski.com"));
         customerRepository.save(new CustomerEntity("Mateusz", "Kowalski", "666555999", "jan@kowalski.com"));

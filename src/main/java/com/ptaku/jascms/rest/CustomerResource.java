@@ -79,6 +79,12 @@ public class CustomerResource {
         return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
+    @PatchMapping
+    public ResponseEntity<CustomerEntity> updatesCustomer(@RequestBody CustomerEntity customerEntity) {
+        CustomerEntity entity = customerRepository.save(customerEntity);
+        return new ResponseEntity<>(entity, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{customerId}")
     public ResponseEntity deleteCustomer(@PathVariable Long customerId) {
         customerRepository.deleteById(customerId);
