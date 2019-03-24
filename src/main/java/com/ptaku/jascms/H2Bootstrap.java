@@ -4,10 +4,7 @@ import com.ptaku.jascms.entity.CarEntity;
 import com.ptaku.jascms.entity.CustomerEntity;
 import com.ptaku.jascms.entity.RepairEntity;
 import com.ptaku.jascms.entity.ReservationEntity;
-import com.ptaku.jascms.repository.CarRepository;
 import com.ptaku.jascms.repository.CustomerRepository;
-import com.ptaku.jascms.repository.RepairRepository;
-import com.ptaku.jascms.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,47 +12,56 @@ import org.springframework.stereotype.Component;
 @Component
 public class H2Bootstrap implements CommandLineRunner {
 
-    private CarRepository carRepository;
     private CustomerRepository customerRepository;
-    private RepairRepository repairRepository;
-    private ReservationRepository reservationRepository;
+
 
     @Autowired
-    public H2Bootstrap(CarRepository carRepository, CustomerRepository customerRepository,
-                       RepairRepository repairRepository, ReservationRepository reservationRepository) {
-        this.carRepository = carRepository;
+    public H2Bootstrap(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.repairRepository = repairRepository;
-        this.reservationRepository = reservationRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-15", "dupa"));
-        reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-16", "dupa"));
-        reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-17", "dupa"));
-        reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-18", "dupa"));
-        reservationRepository.save(new ReservationEntity("Wymiana opon", "2019-03-19", "dupa"));
+        CustomerEntity customer = new CustomerEntity("Jan", "Kowalski", "666555999", "jan@kowalski.com");
+        ReservationEntity reservation = new ReservationEntity("Wymiana opon", "2019-03-15", "Nie będzie łatwo");
+        CarEntity car = new CarEntity("Mazda", "LUB3447E", "1236547412MNBCZXCVBN", 205000L);
+        RepairEntity repair = new RepairEntity("Wymiana opon", "O godz 11", 50.00);
 
-        carRepository.save(new CarEntity("Mazda", "LUB3447E", "GGFHJK5555555", 205000L));
-        carRepository.save(new CarEntity("Uno", "PUB3447E", "BGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("Lada", "LUB3447E", "HBGFHJK5555555", 200700L));
-        carRepository.save(new CarEntity("Audi", "YUB3447E", "BGFHJK5555555", 280040L));
-        carRepository.save(new CarEntity("Jeep", "LUB3447E", "JBGFHJK5555555", 200000L));
-        carRepository.save(new CarEntity("BMW", "JUB3447E", "BPGFHJK5555555", 200800L));
+        car.addRepair(repair);
+        customer.addReservation(reservation);
+        customer.addCar(car);
+        customerRepository.save(customer);
 
-        customerRepository.save(new CustomerEntity("Jan", "Kowalski", "666555999", "jan@kowalski.com"));
-        customerRepository.save(new CustomerEntity("Mateusz", "Kowalski", "666555999", "jan@kowalski.com"));
-        customerRepository.save(new CustomerEntity("Łukasz", "Kowalski", "666555999", "jan@kowalski.com"));
-        customerRepository.save(new CustomerEntity("Paweł", "Kowalski", "666555999", "jan@kowalski.com"));
-        customerRepository.save(new CustomerEntity("Cezary", "Kowalski", "666555999", "jan@kowalski.com"));
+        customer = new CustomerEntity("Mikołaj", "Pietroń", "236456987", "miki@fiki.com");
+        reservation = new ReservationEntity("Naprawa hamulców", "2019-03-16", "Nikt nie potrafi tego zrobić");
+        car = new CarEntity("BMW", "LUB456E", "1236523698GHJLURSWEB", 225000L);
+        repair = new RepairEntity("Naprawa hamulców", "Wszystko jest zardzewiałe", 250.00);
 
-        repairRepository.save(new RepairEntity("Wymiana opon", "O godz 11", 50.00));
-        repairRepository.save(new RepairEntity("Wymiana opon", "O godz 11", 50.00));
-        repairRepository.save(new RepairEntity("Wymiana opon", "O godz 11", 50.00));
-        repairRepository.save(new RepairEntity("Wymiana silnika", "O godz 11", 800.00));
-        repairRepository.save(new RepairEntity("Naprawa silnika", "O godz 11", 500.00));
+        car.addRepair(repair);
+        customer.addReservation(reservation);
+        customer.addCar(car);
+        customerRepository.save(customer);
+
+        customer = new CustomerEntity("Łukasz", "Warzywoda", "321456963", "vandyke@wp.pl");
+        reservation = new ReservationEntity("Naprawa zawieszenia", "2019-03-17", "Nikt nie potrafi tego zrobić");
+        car = new CarEntity("Jeep", "WE1236E", "456328741MKJDGJLIYR", 267000L);
+        repair = new RepairEntity("Naprawa zawieszenia", "Nikt nie potrafi tego zrobić", 320.00);
+
+        car.addRepair(repair);
+        customer.addReservation(reservation);
+        customer.addCar(car);
+        customerRepository.save(customer);
+
+        customer = new CustomerEntity("Ola", "Wrona", "669879321", "ola@wp.pl");
+        reservation = new ReservationEntity("Wymiana silnika", "2019-03-21", "Bardzo trudna strawa");
+        car = new CarEntity("Mazda", "WE124KE", "456LKH789LKJ46312FGHJK", 278900L);
+        repair = new RepairEntity("Wymiana silnika", "Wymieniono", 520.00);
+
+        car.addRepair(repair);
+        customer.addReservation(reservation);
+        customer.addCar(car);
+        customerRepository.save(customer);
 
     }
 }
