@@ -1,7 +1,6 @@
 package com.ptaku.jascms.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -24,9 +23,6 @@ public class CarEntity {
     @NotNull
     private String vin;
 
-    @NotNull
-    private Long mileage;
-
     @JsonIgnoreProperties({"cars", "reservations"})
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "customerEntity_id")
@@ -39,11 +35,10 @@ public class CarEntity {
     public CarEntity() {
     }
 
-    public CarEntity(@NotNull String brand, @NotNull String regNumber, @NotNull String vin, @NotNull Long mileage) {
+    public CarEntity(@NotNull String brand, @NotNull String regNumber, @NotNull String vin) {
         this.brand = brand;
         this.regNumber = regNumber;
         this.vin = vin;
-        this.mileage = mileage;
     }
 
     public Long getId() {
@@ -76,14 +71,6 @@ public class CarEntity {
 
     public void setVin(String vin) {
         this.vin = vin;
-    }
-
-    public Long getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Long mileage) {
-        this.mileage = mileage;
     }
 
     public CustomerEntity getCustomerEntity() {

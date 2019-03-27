@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "repairEntity")
 @Table(name = "repairEntity")
@@ -17,23 +19,25 @@ public class RepairEntity {
     private String title;
 
     @NotNull
-    private String description;
+    private Long mileage;
 
-    @NotNull
-    private Double price;
+    private Double totalPrice;
+
+    @JsonIgnoreProperties("repairEntity")
+    @OneToMany(mappedBy = "repairEntity", cascade = CascadeType.ALL)
+    private List<RepairElement> elements;
 
     @JsonIgnoreProperties("repairs")
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "carEntity_id")
     private CarEntity carEntity;
 
-    public RepairEntity() {
-    }
+    public RepairEntity() { }
 
-    public RepairEntity(@NotNull String title, @NotNull String description, @NotNull Double price) {
+    public RepairEntity(@NotNull String title, @NotNull Long mileage) {
         this.title = title;
-        this.description = description;
-        this.price = price;
+        this.mileage = mileage;
+        this.totalPrice = 0.0;
     }
 
     public Long getId() {
@@ -52,20 +56,34 @@ public class RepairEntity {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public Long getMileage() {
+        return mileage;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMileage(Long mileage) {
+        this.mileage = mileage;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public List<RepairElement> getElements() {
+        return elements;
+    }
+
+    public void addElements(RepairElement repairElement) {
+        if (this.elements == null) {
+            this.elements = new ArrayList<>();
+        }
+        this.elements.add(repairElement);
+        this.totalPrice += repairElement.getPrice();
+        repairElement.setRepairEntity(this);
+    }
+
+    public void removeElement(RepairElement repairElement) {
+        this.elements.remove(repairElement);
+        this.totalPrice -= repairElement.getPrice();
     }
 
     public CarEntity getCarEntity() {
@@ -76,3 +94,4 @@ public class RepairEntity {
         this.carEntity = carEntity;
     }
 }
+
