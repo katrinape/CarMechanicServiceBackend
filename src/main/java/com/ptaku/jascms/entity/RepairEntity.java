@@ -21,6 +21,9 @@ public class RepairEntity {
     @NotNull
     private Long mileage;
 
+    @NotNull
+    private String date;
+
     private Double totalPrice;
 
     @JsonIgnoreProperties("repairEntity")
@@ -32,11 +35,14 @@ public class RepairEntity {
     @JoinColumn(name = "carEntity_id")
     private CarEntity carEntity;
 
-    public RepairEntity() { }
+    public RepairEntity() {
+        this.totalPrice = 0.0;
+    }
 
-    public RepairEntity(@NotNull String title, @NotNull Long mileage) {
+    public RepairEntity(@NotNull String title, @NotNull Long mileage, @NotNull String date) {
         this.title = title;
         this.mileage = mileage;
+        this.date = date;
         this.totalPrice = 0.0;
     }
 
@@ -62,6 +68,14 @@ public class RepairEntity {
 
     public void setMileage(Long mileage) {
         this.mileage = mileage;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Double getTotalPrice() {
