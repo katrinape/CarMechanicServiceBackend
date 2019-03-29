@@ -1,5 +1,6 @@
 package com.ptaku.jascms.rest;
 
+import com.ptaku.jascms.entity.RepairElement;
 import com.ptaku.jascms.entity.RepairEntity;
 import com.ptaku.jascms.repository.RepairRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,16 @@ public class RepairResource {
     public ResponseEntity<RepairEntity> createRepair(@RequestBody RepairEntity repairEntity) {
         RepairEntity entity = repairRepository.save(repairEntity);
         return new ResponseEntity<>(entity, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{repairId}/elements")
+    public ResponseEntity<RepairEntity> addElement(@PathVariable Long repairId, @RequestBody RepairElement element) {
+        RepairEntity repairEntity = repairRepository.findById(repairId).orElse(null);
+        if(repairEntity != null) {
+            repairEntity.addElement(element);
+            repairRepository.save(repairEntity);
+        }
+        return new ResponseEntity<>(repairEntity, HttpStatus.OK);
     }
 
     @PutMapping

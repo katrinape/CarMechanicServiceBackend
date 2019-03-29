@@ -86,7 +86,7 @@ public class RepairEntity {
         return elements;
     }
 
-    public void addElements(RepairElement repairElement) {
+    public void addElement(RepairElement repairElement) {
         if (this.elements == null) {
             this.elements = new ArrayList<>();
         }
