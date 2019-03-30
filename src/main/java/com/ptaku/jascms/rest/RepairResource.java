@@ -2,6 +2,7 @@ package com.ptaku.jascms.rest;
 
 import com.ptaku.jascms.entity.RepairElement;
 import com.ptaku.jascms.entity.RepairEntity;
+import com.ptaku.jascms.repository.ElementRepository;
 import com.ptaku.jascms.repository.RepairRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class RepairResource {
 
     private RepairRepository repairRepository;
+    private ElementRepository elementRepository;
 
     @Autowired
-    public RepairResource(RepairRepository repairRepository) {
+    public RepairResource(RepairRepository repairRepository, ElementRepository elementRepository) {
         this.repairRepository = repairRepository;
+        this.elementRepository = elementRepository;
     }
 
     @GetMapping
@@ -61,6 +64,17 @@ public class RepairResource {
     @DeleteMapping
     public ResponseEntity deleteAllRepairs() {
         repairRepository.deleteAll();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/elements")
+    public ResponseEntity<Iterable<RepairElement>> getAllElements() {
+        return new ResponseEntity<>(elementRepository.findAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/elements/{elementId}")
+    public ResponseEntity deleteRepairElement(@PathVariable Long elementId) {
+        elementRepository.deleteById(elementId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
