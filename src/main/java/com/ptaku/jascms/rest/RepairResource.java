@@ -74,6 +74,12 @@ public class RepairResource {
 
     @DeleteMapping("/elements/{elementId}")
     public ResponseEntity deleteRepairElement(@PathVariable Long elementId) {
+        RepairElement element = elementRepository.findById(elementId).orElse(null);
+        if (element != null) {
+            RepairEntity repairEntity = element.getRepairEntity();
+            repairEntity.removeElement(element);
+            repairRepository.save(repairEntity);
+        }
         elementRepository.deleteById(elementId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
