@@ -4,7 +4,6 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#features)
@@ -13,30 +12,20 @@
 * [Contact](#contact)
 
 ## General info
-Add more general information about project. What the purpose of the project is? Motivation?
-
 This is Java application with client-server architecture which can be used to monitor activities for customers, customer's reservations, cars and cars' repairs. It's all about create, update, delete and search all mentioned entites.
 
 Software requirements are described with following use cases:
 
 1. Create new customer
-2. Update customer
-3. Delete cistomer
-4. Create new customer's car
-5. Update car
-6. Delete car
-7. Create new customer's reservation
-8. Update reservation
-9. Delete reservation
-10. Create new car's repair
-11. Update repair
-12. Delete repair
-13. Create repair's elements
-14. Update repeir elements
-15. Delete repair elements
-
-## Screenshots
-![Example screenshot](./img/screenshot.png)
+2. Update or delete customer
+3. Create new customer's car
+4. Update or delete car
+5. Create new customer's reservation
+6. Update or delete reservation
+7. Create new car's repair
+8. Update or delete repair
+9. Create repair's element
+10. Update or delete repair element
 
 ## Technologies
 * Java - 1.8
@@ -68,4 +57,4 @@ Project is: _in progress_, _finished_, _no longer continue_ and why?
 Add here credits. Project inspired by..., based on...
 
 ## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
+Created by [@katrinape](katrina3447e@gmail.com) - feel free to contact me!
