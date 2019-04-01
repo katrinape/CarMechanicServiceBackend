@@ -34,11 +34,21 @@ Software requirements are described with following use cases:
 * Maven
 
 ## Setup
-Describe how to install / setup your local environement / add link to demo version.
+Download project from GitHub:
+
+`git clone https://github.com/katrinape/CarMechanicServiceBackend.git`
+
+Go to CarMechanicServiceBackend folder:
+
+`cd CarMechanicServiceBackend/`
+
+Now run Spring-Boot project:
+
+`./mvnw spring-boot:run`
 
 ## Code Examples
 Show examples of usage:
-`put-your-code-here`
+`http://localhost:8080/customers`
 
 ## Features
 List of features ready and TODOs for future development
@@ -51,7 +61,7 @@ To-do list:
 * Wow improvement to be done 2
 
 ## Status
-Project is: _in progress_, _finished_, _no longer continue_ and why?
+Project is: _in progress_
 
 ## Inspiration
 Add here credits. Project inspired by..., based on...
